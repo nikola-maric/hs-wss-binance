@@ -1,0 +1,82 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: fecb7498329f39beaefcb8524b2ff4413f2fbaf3925d20d0a67c79274c09f7a7
+
+name:           hs-trader
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/hs-trader#readme>
+homepage:       https://github.com/githubuser/hs-trader#readme
+bug-reports:    https://github.com/githubuser/hs-trader/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2021 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/hs-trader
+
+library
+  exposed-modules:
+      Utils.Monad
+      WebSockets.Binance.AggregatedTrade
+      WebSockets.Binance.CandlestickData
+      WebSockets.Binance.IndividualMiniTicker
+      WebSockets.Binance.StreamClient
+      WebSockets.Binance.Trade
+      WebSockets.Binance.Types
+  other-modules:
+      Paths_hs_trader
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-local-signatures -Widentities -Wredundant-constraints -Wpartial-fields
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , deriving-aeson
+    , network
+    , text
+    , unagi-chan
+    , unordered-containers
+    , websockets
+    , world-peace
+    , wuss
+  default-language: Haskell2010
+
+executable hs-trader-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_hs_trader
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-local-signatures -Widentities -Wredundant-constraints -Wpartial-fields
+  build-depends:
+      async
+    , base >=4.7 && <5
+    , hs-trader
+    , unagi-chan
+    , world-peace
+  default-language: Haskell2010
+
+test-suite hs-trader-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_hs_trader
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , hs-trader
+  default-language: Haskell2010

@@ -1,6 +1,6 @@
 # hs-wss-binance
 
-**IMPORTANT NOTE**: This in by no means production-grade library, it was built just for fun :) 
+**IMPORTANT NOTE**: This is by no means production-grade library, it was built just for fun :) 
 
 It imlements Binance web socket streaming API , described [here](https://github.com/binance/binance-spot-api-docs/blob/master/web-socket-streams.md). However, only listening to stream messages is implemented, not the sending of messages to server.
 
@@ -12,7 +12,7 @@ Binance servers send PING messages from time to time, and if client does not res
 
 `listenFor` is kinda the entrypoint, as it gets the stream and returns Chan that can be used to listen for messages.
 
-There are some predefined streams in appropriate modules, like `tradingStreamOf`, `allMarketBookTickerStream`, etc.
+There are some predefined streams in appropriate modules, like `tradingStreamOf`, `allMarketBookTickerOf`, etc.
 
 Streams can also be combined, so a single connection can be used to listen for multiple messages, using [world-peace](https://github.com/cdepillabout/world-peace) open sum implementation. For example, one can do
 
@@ -48,7 +48,7 @@ RecievePayload
 
 ### Customizing responses
 
-There is a little room for customization, if one does want to customize messages in any way, as maybe we are not interested in all response fields, or some other reason.
+There is a little room for customization, if one does want to customize messages in any way - maybe we are not interested in all response fields, or there is some other reason.
 
 If thats the case, one cam implement custom data type and define `FromJSON` and `ToJSON` instances, and create stream like so:
 
@@ -68,5 +68,5 @@ blablaTrade :: TradingPair cName -> StreamOf
      '[StreamType (AppendSymbol cName "@trade") Blabla] '[Blabla]
 blablaTrade pair = streamOf @Blabla (TradingOf pair)
 ```
-Listening to that stream would yield responses of type `Blabla`
+Listening to that stream would yield responses of type `Blabla` (again, wrapped in `PayloadResponse` and single element open sum)
 

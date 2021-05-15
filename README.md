@@ -39,11 +39,7 @@ readPrice channel = forever $ do
 Resulting type that would be used in Chan-s would then look like
 
 ```haskell
-RecievePayload
-     (OpenUnion
-        (Merge
-           '[PartialBookDepthStreamResponse, DifferentialDepthStreamResponse]
-           TradeResponse))
+(RecievePayload (OpenUnion '[PartialBookDepthStreamResponse, TradeResponse, DifferentialDepthStreamResponse]))
 ```
 
 ### Customizing responses

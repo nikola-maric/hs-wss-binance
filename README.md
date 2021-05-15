@@ -22,9 +22,9 @@ main = do
   (priceInChan, priceOutChan) <- newChan 10
   concurrently_
     ( listenFor
-        ( partialBookDepthStreamOf (TradingPair @"adausdt") Five OneSecond
-            `combineWith` differentialDepthStreamOf (TradingPair @"bnbbtc") HundredMilliseconds
-            `combineWith` tradingStreamOf (TradingPair @"bnbbtc")
+        ( partialBookDepthOf (TradingPair @"adausdt") Five OneSecond
+            `combineWith` differentialDepthOf (TradingPair @"bnbbtc") HundredMilliseconds
+            `combineWith` tradeOf (TradingPair @"bnbbtc")
         )
         priceInChan
     )

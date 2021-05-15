@@ -1,3 +1,4 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
@@ -8,15 +9,19 @@ module WebSockets.Binance.CandlestickData where
 
 import Data.Aeson (FromJSON (parseJSON), ToJSON, withObject, (.:))
 import GHC.Generics (Generic)
+import GHC.TypeLits (AppendSymbol)
+import WebSockets.Binance.Stream (StreamOf, streamOf)
+import WebSockets.Binance.Types (ChartInterval, StreamType (CandlestickDataOf), TradingPair)
+import Data.Text (Text)
 
 data CandlestickDataResponse = CandlestickDataResponse
-  { cdrEventType :: String,
+  { cdrEventType :: Text,
     cdrEventTime :: Integer,
-    cdrSymbol :: String,
+    cdrSymbol :: Text,
     cdrKlineStartTime :: Integer,
     cdrKlineCloseTime :: Integer,
-    cdrKlineSymbol :: String,
-    cdrKlineInteval :: String, --TODO ChartInterval?
+    cdrKlineSymbol :: Text,
+    cdrKlineInteval :: Text,
     cdrKlineFirstTradeId :: Integer,
     cdrKlineLastTradeId :: Integer,
     cdrKlineOpenPrice :: Float,
@@ -54,3 +59,11 @@ instance FromJSON CandlestickDataResponse where
       <*> fmap (read @Float) ((v .: "k") >>= (.: "q"))
       <*> fmap (read @Float) ((v .: "k") >>= (.: "V"))
       <*> fmap (read @Float) ((v .: "k") >>= (.: "Q"))
+
+candlestickDataOf ::
+  TradingPair cName ->
+  ChartInterval tName ->
+  StreamOf
+    '[StreamType (AppendSymbol (AppendSymbol (AppendSymbol cName "@") "kline_") tName) CandlestickDataResponse]
+    '[CandlestickDataResponse]
+candlestickDataOf pair interval = streamOf @CandlestickDataResponse (CandlestickDataOf pair interval)

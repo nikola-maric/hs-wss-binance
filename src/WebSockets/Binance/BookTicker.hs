@@ -5,7 +5,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications #-}
 
-module WebSockets.Binance.IndividualBookTicker where
+module WebSockets.Binance.BookTicker where
 
 import Data.Aeson (FromJSON (parseJSON), ToJSON, withObject, (.:))
 import GHC.Generics (Generic)
@@ -15,19 +15,20 @@ import WebSockets.Binance.Types
   ( StreamType (AllMarketBookTicker, IndividualBookTickerOf),
     TradingPair,
   )
+import Data.Text (Text)
 
-data IndividualBookTickerResponse = IndividualBookTickerResponse
-  { ibtrOrderBookUpdateId :: Integer,
-    ibtrSymbol :: String,
-    ibtrBestBidPrice :: Float,
-    ibtrBestBidQuantity :: Float,
-    ibtrBestAskPrice :: Float,
-    ibtrBestAskQuantity :: Float
+data BookTickerResponse = IndividualBookTickerResponse
+  { btrOrderBookUpdateId :: Integer,
+    btrSymbol :: Text,
+    btrBestBidPrice :: Float,
+    btrBestBidQuantity :: Float,
+    btrBestAskPrice :: Float,
+    btrBestAskQuantity :: Float
   }
   deriving stock (Eq, Show, Generic)
   deriving anyclass (ToJSON)
 
-instance FromJSON IndividualBookTickerResponse where
+instance FromJSON BookTickerResponse where
   parseJSON = withObject "IndividualBookTickerResponse" $ \v ->
     IndividualBookTickerResponse <$> v .: "u"
       <*> v .: "s"
@@ -36,15 +37,15 @@ instance FromJSON IndividualBookTickerResponse where
       <*> fmap (read @Float) (v .: "a")
       <*> fmap (read @Float) (v .: "A")
 
-individualBookTickerStreamOf ::
+individualBookTickerOf ::
   TradingPair pair ->
   StreamOf
-    '[StreamType (AppendSymbol pair "@bookTicker") IndividualBookTickerResponse]
-    '[IndividualBookTickerResponse]
-individualBookTickerStreamOf pair = streamOf @IndividualBookTickerResponse (IndividualBookTickerOf pair)
+    '[StreamType (AppendSymbol pair "@bookTicker") BookTickerResponse]
+    '[BookTickerResponse]
+individualBookTickerOf pair = streamOf @BookTickerResponse (IndividualBookTickerOf pair)
 
-allMarketBookTickerStream ::
+allMarketBookTickerOf ::
   StreamOf
-    '[StreamType "!bookTicker" IndividualBookTickerResponse]
-    '[IndividualBookTickerResponse]
-allMarketBookTickerStream = streamOf @IndividualBookTickerResponse AllMarketBookTicker
+    '[StreamType "!bookTicker" BookTickerResponse]
+    '[BookTickerResponse]
+allMarketBookTickerOf = streamOf @BookTickerResponse AllMarketBookTicker

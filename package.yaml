@@ -1,10 +1,10 @@
-name:                hs-trader
+name:                hs-wss-binance
 version:             0.1.0.0
-github:              "githubuser/hs-trader"
+github:              "nikola-maric/hs-wss-binance"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2021 Author name here"
+author:              "Nikola Marić"
+maintainer:          "nkl.maric@gmail.com"
+copyright:           "2021 Nikola Maric"
 
 extra-source-files:
 - README.md
@@ -17,7 +17,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/hs-trader#readme>
+description:         Please see the README on GitHub at <https://github.com/nikola-maric/hs-wss-binance#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -45,7 +45,7 @@ library:
     - vector
 
 executables:
-  hs-trader-exe:
+  hs-wss-binance-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -60,13 +60,13 @@ executables:
     - -Wredundant-constraints
     - -Wpartial-fields
     dependencies:
-    - hs-trader
+    - hs-wss-binance
     - unagi-chan
     - async
     - world-peace
 
 tests:
-  hs-trader-test:
+  hs-wss-binance-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -74,4 +74,4 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - hs-trader
+    - hs-wss-binance

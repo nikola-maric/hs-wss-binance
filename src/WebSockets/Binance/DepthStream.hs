@@ -19,6 +19,7 @@ import WebSockets.Binance.Types
     StreamType (DiffDepthStreamOf, PartialBookDepthStreamOf),
     TradingPair,
   )
+import Data.Text (Text)
 
 data Bid = Bid
   { bidPriceLevel :: Float,
@@ -59,9 +60,9 @@ instance FromJSON PartialBookDepthStreamResponse where
     PartialBookDepthStreamResponse <$> v .: "lastUpdateId" <*> v .: "bids" <*> v .: "asks"
 
 data DifferentialDepthStreamResponse = DifferentialDepthStreamResponse
-  { ddsrEventType :: String,
+  { ddsrEventType :: Text,
     ddsrEventTime :: Integer,
-    ddsrSymbol :: String,
+    ddsrSymbol :: Text,
     ddsrFirstUpdateId :: Integer,
     ddsrFinalUpdateId :: Integer,
     ddsrBids :: [Bid],
@@ -81,19 +82,19 @@ instance FromJSON DifferentialDepthStreamResponse where
       <*> v .: "b"
       <*> v .: "a"
 
-partialBookDepthStreamOf ::
+partialBookDepthOf ::
   TradingPair cName ->
   DepthStreamLevel depth ->
   DepthStreamFrequency freq ->
   StreamOf
     '[StreamType (AppendSymbol cName (AppendSymbol "@depth" (AppendSymbol depth (AppendSymbol "@" freq)))) PartialBookDepthStreamResponse]
     '[PartialBookDepthStreamResponse]
-partialBookDepthStreamOf pair depth frequency = streamOf @PartialBookDepthStreamResponse (PartialBookDepthStreamOf pair depth frequency)
+partialBookDepthOf pair depth frequency = streamOf @PartialBookDepthStreamResponse (PartialBookDepthStreamOf pair depth frequency)
 
-differentialDepthStreamOf ::
+differentialDepthOf ::
   TradingPair cName ->
   DepthStreamFrequency freq ->
   StreamOf
     '[StreamType (AppendSymbol cName (AppendSymbol "@depth@" freq)) DifferentialDepthStreamResponse]
     '[DifferentialDepthStreamResponse]
-differentialDepthStreamOf pair frequency = streamOf @DifferentialDepthStreamResponse (DiffDepthStreamOf pair frequency)
+differentialDepthOf pair frequency = streamOf @DifferentialDepthStreamResponse (DiffDepthStreamOf pair frequency)

@@ -4,16 +4,16 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a5ea388a5846813f4179f2f24cd4de92cea6078e3eaed49e75f9a3aee425213b
+-- hash: 695463a1b3882f06b87df78478364fa114ca4f04f0c7b6f21968b50f59db3ae0
 
-name:           hs-trader
+name:           hs-wss-binance
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/hs-trader#readme>
-homepage:       https://github.com/githubuser/hs-trader#readme
-bug-reports:    https://github.com/githubuser/hs-trader/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2021 Author name here
+description:    Please see the README on GitHub at <https://github.com/nikola-maric/hs-wss-binance#readme>
+homepage:       https://github.com/nikola-maric/hs-wss-binance#readme
+bug-reports:    https://github.com/nikola-maric/hs-wss-binance/issues
+author:         Nikola Marić
+maintainer:     nkl.maric@gmail.com
+copyright:      2021 Nikola Maric
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -23,7 +23,7 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/hs-trader
+  location: https://github.com/nikola-maric/hs-wss-binance
 
 library
   exposed-modules:
@@ -31,16 +31,17 @@ library
       WebSockets.Binance.AggregatedTrade
       WebSockets.Binance.AllMarketMiniTicker
       WebSockets.Binance.AllMarketTicker
+      WebSockets.Binance.BookTicker
       WebSockets.Binance.CandlestickData
       WebSockets.Binance.DepthStream
-      WebSockets.Binance.IndividualBookTicker
       WebSockets.Binance.IndividualMiniTicker
+      WebSockets.Binance.IndividualTicker
       WebSockets.Binance.Stream
       WebSockets.Binance.StreamClient
       WebSockets.Binance.Trade
       WebSockets.Binance.Types
   other-modules:
-      Paths_hs_trader
+      Paths_hs_wss_binance
   hs-source-dirs:
       src
   ghc-options: -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-local-signatures -Widentities -Wredundant-constraints -Wpartial-fields
@@ -58,30 +59,30 @@ library
     , wuss
   default-language: Haskell2010
 
-executable hs-trader-exe
+executable hs-wss-binance-exe
   main-is: Main.hs
   other-modules:
-      Paths_hs_trader
+      Paths_hs_wss_binance
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-local-signatures -Widentities -Wredundant-constraints -Wpartial-fields
   build-depends:
       async
     , base >=4.7 && <5
-    , hs-trader
+    , hs-wss-binance
     , unagi-chan
     , world-peace
   default-language: Haskell2010
 
-test-suite hs-trader-test
+test-suite hs-wss-binance-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_hs_trader
+      Paths_hs_wss_binance
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , hs-trader
+    , hs-wss-binance
   default-language: Haskell2010

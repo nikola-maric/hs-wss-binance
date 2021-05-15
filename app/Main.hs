@@ -6,10 +6,10 @@ module Main where
 import Control.Concurrent.Async (concurrently_)
 import Control.Concurrent.Chan.Unagi.Bounded (OutChan, newChan, readChan)
 import Control.Monad (forever)
-import WebSockets.Binance.DepthStream (differentialDepthStreamOf, partialBookDepthStreamOf)
+import WebSockets.Binance.DepthStream (differentialDepthOf, partialBookDepthOf)
 import WebSockets.Binance.Stream (combineWith)
 import WebSockets.Binance.StreamClient (listenFor)
-import WebSockets.Binance.Trade
+import WebSockets.Binance.Trade (tradeOf)
 import WebSockets.Binance.Types
 
 main :: IO ()
@@ -17,9 +17,9 @@ main = do
   (priceInChan, priceOutChan) <- newChan 10
   concurrently_
     ( listenFor
-        ( partialBookDepthStreamOf (TradingPair @"adausdt") Five OneSecond
-            `combineWith` differentialDepthStreamOf (TradingPair @"bnbbtc") HundredMilliseconds
-            `combineWith` tradingOf (TradingPair @"bnbbtc")
+        ( partialBookDepthOf (TradingPair @"adausdt") Five OneSecond
+            `combineWith` differentialDepthOf (TradingPair @"bnbbtc") HundredMilliseconds
+            `combineWith` tradeOf (TradingPair @"bnbbtc")
         )
         priceInChan
     )

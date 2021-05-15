@@ -4,15 +4,21 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications #-}
 
+{-# LANGUAGE DataKinds #-}
 module WebSockets.Binance.IndividualMiniTicker where
 
 import Data.Aeson (FromJSON (parseJSON), ToJSON, withObject, (.:))
 import GHC.Generics (Generic)
+import WebSockets.Binance.Types
+    ( TradingPair, StreamType(IndividualMiniTickerOf) )
+import WebSockets.Binance.Stream ( StreamOf, streamOf )
+import GHC.TypeLits (AppendSymbol)
+import Data.Text (Text)
 
 data IndividualMiniTickerResponse = IndividualMiniTickerResponse
-  { imtrEventType :: String,
+  { imtrEventType :: Text,
     imtrEventTime :: Integer,
-    imtrEventSymbol :: String,
+    imtrEventSymbol :: Text,
     imtrClosePrice :: Float,
     imtrOpenPrice :: Float,
     imtrHighPrice :: Float,
@@ -34,3 +40,8 @@ instance FromJSON IndividualMiniTickerResponse where
       <*> fmap (read @Float) (v .: "l")
       <*> fmap (read @Float) (v .: "v")
       <*> fmap (read @Float) (v .: "q")
+
+individualMiniTickerOf :: TradingPair cName -> StreamOf
+     '[StreamType (AppendSymbol cName "@miniTicker") IndividualMiniTickerResponse]
+     '[IndividualMiniTickerResponse]
+individualMiniTickerOf = streamOf @IndividualMiniTickerResponse . IndividualMiniTickerOf

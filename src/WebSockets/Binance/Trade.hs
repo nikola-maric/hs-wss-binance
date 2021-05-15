@@ -15,11 +15,12 @@ import WebSockets.Binance.Types
   ( StreamType (TradingOf),
     TradingPair,
   )
+import Data.Text (Text)
 
 data TradeResponse = TradeResponse
-  { trEventType :: String,
+  { trEventType :: Text,
     trEventTime :: Integer,
-    trEventSymbol :: String,
+    trEventSymbol :: Text,
     trTradeId :: Integer,
     trPrice :: Float,
     trQuantity :: Float,
@@ -44,9 +45,9 @@ instance FromJSON TradeResponse where
       <*> v .: "T"
       <*> v .: "m"
 
-tradingOf ::
+tradeOf ::
   TradingPair cName ->
   StreamOf
     '[StreamType (AppendSymbol cName "@trade") TradeResponse]
     '[TradeResponse]
-tradingOf pair = streamOf @TradeResponse (TradingOf pair)
+tradeOf pair = streamOf @TradeResponse (TradingOf pair)

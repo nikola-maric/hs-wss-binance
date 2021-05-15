@@ -1,3 +1,4 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
@@ -8,9 +9,16 @@ module WebSockets.Binance.AggregatedTrade where
 
 import Data.Aeson (FromJSON (parseJSON), ToJSON, withObject, (.:))
 import GHC.Generics (Generic)
+import GHC.TypeLits (AppendSymbol)
+import WebSockets.Binance.Stream (StreamOf, streamOf)
+import WebSockets.Binance.Types
+  ( StreamType (AggregatedTradeOf),
+    TradingPair,
+  )
+import Data.Text (Text)
 
 data AggregatedTradeResponse = AggregatedTradeResponse
-  { atrEventType :: String,
+  { atrEventType :: Text,
     atrEventTime :: Integer,
     atrPrice :: Float,
     atrQuantity :: Float,
@@ -30,3 +38,10 @@ instance FromJSON AggregatedTradeResponse where
       <*> v .: "f"
       <*> v .: "l"
       <*> v .: "m"
+
+aggregatedTradeOf ::
+  TradingPair cName ->
+  StreamOf
+    '[StreamType (AppendSymbol cName "@aggTrade") AggregatedTradeResponse]
+    '[AggregatedTradeResponse]
+aggregatedTradeOf pair = streamOf @AggregatedTradeResponse (AggregatedTradeOf pair)

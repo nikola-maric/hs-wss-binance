@@ -12,7 +12,7 @@ Binance servers send PING messages from time to time, and if client does not res
 
 `listenFor` is kinda the entrypoint, as it gets the stream and returns Chan that can be used to listen for messages.
 
-There are some predefined streams in appropriate modules, like `tradingStreamOf`, `allMarketBookTickerOf`, etc.
+There are some predefined streams in appropriate modules, like `tradeOf`, `allMarketBookTickerOf`, etc.
 
 Streams can also be combined, so a single connection can be used to listen for multiple messages, using [world-peace](https://github.com/cdepillabout/world-peace) open sum implementation. For example, one can do
 

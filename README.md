@@ -1,8 +1,8 @@
 # hs-wss-binance
 
-**IMPORTANT NOTE**: This is by no means production-grade library, it was built just for fun :) 
+**IMPORTANT NOTE**: This is by no means production-grade or official library, it was built just for fun :) 
 
-It imlements Binance web socket streaming API , described [here](https://github.com/binance/binance-spot-api-docs/blob/master/web-socket-streams.md). However, only listening to stream messages is implemented, not the sending of messages to server.
+It is a client for Binance web socket streaming API, described [here](https://github.com/binance/binance-spot-api-docs/blob/master/web-socket-streams.md). However, only listening to stream messages is implemented, not the sending of messages to server.
 
 Client uses [wuss](https://github.com/tfausak/wuss) library under the hood, which in turn uses [websockets](https://hackage.haskell.org/package/websockets) package.
 

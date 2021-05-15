@@ -3,13 +3,9 @@
 
 module Main where
 
-import Control.Concurrent (threadDelay)
 import Control.Concurrent.Async (concurrently_)
 import Control.Concurrent.Chan.Unagi.Bounded (OutChan, newChan, readChan)
 import Control.Monad (forever)
-import Data.WorldPeace (OpenUnion)
-import WebSockets.Binance.AggregatedTrade (AggregatedTradeResponse)
-import WebSockets.Binance.CandlestickData (CandlestickDataResponse)
 import WebSockets.Binance.DepthStream (differentialDepthStreamOf, partialBookDepthStreamOf)
 import WebSockets.Binance.Stream (combineWith)
 import WebSockets.Binance.StreamClient (listenFor)

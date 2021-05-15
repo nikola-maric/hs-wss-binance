@@ -10,10 +10,11 @@ module WebSockets.Binance.IndividualBookTicker where
 import Data.Aeson (FromJSON (parseJSON), ToJSON, withObject, (.:))
 import GHC.Generics (Generic)
 import GHC.TypeLits (AppendSymbol)
+import WebSockets.Binance.Stream (StreamOf, streamOf)
 import WebSockets.Binance.Types
-    ( TradingPair,
-      StreamType(AllMarketBookTicker, IndividualBookTickerOf) )
-import WebSockets.Binance.Stream ( StreamOf, streamOf )
+  ( StreamType (AllMarketBookTicker, IndividualBookTickerOf),
+    TradingPair,
+  )
 
 data IndividualBookTickerResponse = IndividualBookTickerResponse
   { ibtrOrderBookUpdateId :: Integer,

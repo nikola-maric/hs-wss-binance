@@ -1,9 +1,9 @@
-{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeApplications #-}
 
 module WebSockets.Binance.DepthStream where
 
@@ -12,12 +12,13 @@ import Data.Aeson.Types (Value (..), typeMismatch)
 import qualified Data.Vector as V
 import GHC.Generics (Generic)
 import GHC.TypeLits (AppendSymbol)
+import WebSockets.Binance.Stream (StreamOf, streamOf)
 import WebSockets.Binance.Types
-    ( TradingPair,
-      DepthStreamFrequency,
-      DepthStreamLevel,
-      StreamType(DiffDepthStreamOf, PartialBookDepthStreamOf) )
-import WebSockets.Binance.Stream ( StreamOf, streamOf )
+  ( DepthStreamFrequency,
+    DepthStreamLevel,
+    StreamType (DiffDepthStreamOf, PartialBookDepthStreamOf),
+    TradingPair,
+  )
 
 data Bid = Bid
   { bidPriceLevel :: Float,

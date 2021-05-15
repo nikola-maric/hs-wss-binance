@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 695463a1b3882f06b87df78478364fa114ca4f04f0c7b6f21968b50f59db3ae0
+-- hash: 448079ae460048387e696a0bbb72fcc4a9c3be0b052c7cafb65c3e921da5a06e
 
 name:           hs-wss-binance
 version:        0.1.0.0
@@ -52,7 +52,6 @@ library
     , network
     , text
     , unagi-chan
-    , unordered-containers
     , vector
     , websockets
     , world-peace

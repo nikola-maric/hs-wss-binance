@@ -41,7 +41,6 @@ library:
     - unagi-chan
     - network
     - world-peace
-    - unordered-containers
     - vector
 
 executables:

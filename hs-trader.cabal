@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: fecb7498329f39beaefcb8524b2ff4413f2fbaf3925d20d0a67c79274c09f7a7
+-- hash: a5ea388a5846813f4179f2f24cd4de92cea6078e3eaed49e75f9a3aee425213b
 
 name:           hs-trader
 version:        0.1.0.0
@@ -27,10 +27,15 @@ source-repository head
 
 library
   exposed-modules:
-      Utils.Monad
+      WebSockets.Binance
       WebSockets.Binance.AggregatedTrade
+      WebSockets.Binance.AllMarketMiniTicker
+      WebSockets.Binance.AllMarketTicker
       WebSockets.Binance.CandlestickData
+      WebSockets.Binance.DepthStream
+      WebSockets.Binance.IndividualBookTicker
       WebSockets.Binance.IndividualMiniTicker
+      WebSockets.Binance.Stream
       WebSockets.Binance.StreamClient
       WebSockets.Binance.Trade
       WebSockets.Binance.Types
@@ -43,11 +48,11 @@ library
       aeson
     , base >=4.7 && <5
     , bytestring
-    , deriving-aeson
     , network
     , text
     , unagi-chan
     , unordered-containers
+    , vector
     , websockets
     , world-peace
     , wuss

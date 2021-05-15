@@ -4,10 +4,15 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE OverloadedStrings #-}
 
+{-# LANGUAGE DataKinds #-}
 module WebSockets.Binance.Trade where
 
 import Data.Aeson (FromJSON (parseJSON), ToJSON, withObject, (.:))
 import GHC.Generics (Generic)
+import GHC.TypeLits (AppendSymbol)
+import WebSockets.Binance.Types
+    ( TradingPair, StreamType(TradingOf) )
+import WebSockets.Binance.Stream (StreamOf, streamOf)
 
 data TradeResponse = TradeResponse {
         trEventType        :: String,
@@ -35,3 +40,8 @@ instance FromJSON TradeResponse where
             <*> v .: "a"
             <*> v .: "T"
             <*> v .: "m"
+
+tradingOf :: TradingPair cName -> StreamOf
+     '[StreamType (AppendSymbol cName "@trade") TradeResponse]
+     '[TradeResponse]
+tradingOf pair = streamOf @TradeResponse (TradingOf pair)

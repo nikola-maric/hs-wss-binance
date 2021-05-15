@@ -1,1 +1,3 @@
 # hs-trader
+
+This library 

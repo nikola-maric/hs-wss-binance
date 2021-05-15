@@ -38,11 +38,11 @@ library:
     - text
     - bytestring
     - aeson
-    - deriving-aeson
     - unagi-chan
     - network
     - world-peace
     - unordered-containers
+    - vector
 
 executables:
   hs-trader-exe:

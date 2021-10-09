@@ -1,5 +1,5 @@
 name:                hs-wss-binance
-version:             0.1.0.0
+version:             0.1.1.0
 github:              "nikola-maric/hs-wss-binance"
 license:             BSD3
 author:              "Nikola Marić"
@@ -42,27 +42,6 @@ library:
     - network
     - world-peace
     - vector
-
-executables:
-  hs-wss-binance-exe:
-    main:                Main.hs
-    source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    - -Wall
-    - -Wincomplete-uni-patterns
-    - -Wincomplete-record-updates
-    - -Wmissing-local-signatures
-    - -Widentities
-    - -Wredundant-constraints
-    - -Wpartial-fields
-    dependencies:
-    - hs-wss-binance
-    - unagi-chan
-    - async
-    - world-peace
 
 tests:
   hs-wss-binance-test:

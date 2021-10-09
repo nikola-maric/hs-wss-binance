@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 37a7179e26c77063bacf533c0015bb8f0230e2c3f058af5073fdc6be3fdebaca
+-- hash: 08efebfdf5bf5434c693c1e995ef6fd40c7c532a54ca9a5b7974ca0d73a7eb17
 
 name:           hs-wss-binance
 version:        0.1.1.0
@@ -27,7 +27,6 @@ source-repository head
 
 library
   exposed-modules:
-      WebSockets.Binance
       WebSockets.Binance.AggregatedTrade
       WebSockets.Binance.AllMarketMiniTicker
       WebSockets.Binance.AllMarketTicker
